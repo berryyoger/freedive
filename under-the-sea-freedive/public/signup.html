@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>회원가입</title>
+<link rel="stylesheet" href="styles.css">
+<script defer src="js/auth.js"></script>
+<script defer src="js/api.js"></script>
+<script defer src="js/ui.js"></script>
+<script defer src="js/pages.js"></script>
+</head>
+<body>
+<div class="container card">
+  <h2>회원가입</h2>
+  <form id="signup-form" class="grid cols-2">
+    <div class="formcell">
+      <label>이름</label>
+      <input name="name" required placeholder="홍길동">
+    </div>
+    <div class="formcell">
+      <label>이메일</label>
+      <input name="email" type="email" required placeholder="you@example.com">
+      <div id="email-msg" class="small"></div>
+    </div>
+    <div class="formcell">
+      <label>비밀번호</label>
+      <input name="password" type="password" required minlength="6">
+    </div>
+    <div class="formcell">
+      <label>비밀번호 확인</label>
+      <input name="password2" type="password" required minlength="6">
+    </div>
+    <div class="formcell">
+      <label>다이빙 경험 수준</label>
+      <select name="level">
+        <option value="초보자">초보자</option>
+        <option value="중급자">중급자</option>
+        <option value="전문가">전문가</option>
+      </select>
+    </div class="formcell">
+    <div class="formcell">
+      <label>보유 자격증 (쉼표로 구분)</label>
+      <input name="certs" placeholder="PADI Freediver, AIDA2 ...">
+    </div>
+    <div id="signupLabel" class="grid cols-3" style="grid-column:1/-1">
+      <label style="display:flex; gap:.5 rem; align-items:center">
+        <input class="signupChBx" type="checkbox" name="termsAgreed" required>
+        <a>개인정보 이용약관에 동의합니다</a>
+      </label>
+      <button class="btn" type="submit">회원가입</button>
+    </div>
+  </form>
+  <p class="small">이미 계정이 있나요? <a class="link" href="login.html">로그인</a></p>
+</div>
+</body>
+</html>

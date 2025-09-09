@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>강습 예약</title>
+<link rel="stylesheet" href="styles.css">
+<script defer src="js/auth.js"></script>
+<script defer src="js/api.js"></script>
+<script defer src="js/ui.js"></script>
+<script defer src="js/pages.js"></script>
+</head>
+<body>
+<div class="container card">
+  <h2>강습 예약</h2>
+  <form id="booking-form" class="grid cols-2">
+    <div>
+      <label>코스명</label>
+      <input name="courseName" required placeholder="AIDA2 Pool, PADI Freediver 등">
+    </div>
+    <div>
+      <label>날짜</label>
+      <input name="date" type="date" required>
+    </div>
+    <div>
+      <label>시간</label>
+      <input name="time" type="time" required>
+    </div>
+    <div>
+      <label>장소</label>
+      <input name="location" required placeholder="수영장/바다 포인트">
+    </div>
+    <div>
+      <label>인원</label>
+      <input name="numPeople" type="number" min="1" value="1">
+    </div>
+    <div>
+      <label>메모</label>
+      <input name="notes" placeholder="요청사항">
+    </div>
+    <div style="grid-column:1/-1">
+      <button class="btn" type="submit">예약 요청</button>
+      <span class="small">* 로그인 필요</span>
+    </div>
+  </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+dotenv.config();
+
+const uri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/under_the_sea';
+
+mongoose.set('strictQuery', true);
+mongoose.connect(uri).then(() => {
+  console.log('✅ MongoDB connected');
+}).catch(err => {
+  console.error('❌ MongoDB connection error:', err.message);
+});

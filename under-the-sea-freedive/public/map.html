@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>다이빙 포인트 지도</title>
+<link rel="stylesheet" href="styles.css">
+<script defer src="js/auth.js"></script>
+<script defer src="js/api.js"></script>
+<script defer src="js/ui.js"></script>
+<script defer src="js/pages.js"></script>
+</head>
+<body>
+<div class="container">
+  <h2>다이빙 포인트</h2>
+  <div id="map" class="card"></div>
+
+  <div class="card" style="margin-top:1rem">
+    <h3>실시간 해양 날씨(샘플)</h3>
+    <div class="grid cols-2">
+      <div>
+        <label>포인트 선택</label>
+        <select id="dp-select"></select>
+      </div>
+      <div id="marine-box"></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
