@@ -51,5 +51,3 @@ app.get('*', (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🌊 Under the Sea server running at http://localhost:${PORT}`));
-
-//test 주석
