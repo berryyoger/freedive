@@ -1,29 +1,6 @@
 # 🌊 Under the Sea — Freediving Shop & Community
 
-프리다이빙샵 웹 프로그래밍 과제용 풀스택 샘플입니다.  
-**Frontend:** HTML/CSS/Vanilla JS · **Backend:** Node.js(Express) · **DB:** MongoDB(Mongoose) · **Auth:** JWT
-
-## 실행 방법
-
-1) 저장소 루트에 `.env`를 만들고 아래 예시를 복사해 값을 채워주세요.
-```
-MONGO_URI=mongodb://127.0.0.1:27017/under_the_sea
-JWT_SECRET=supersecret_change_me
-PORT=3000
-```
-2) 의존성 설치
-```
-npm install
-```
-3) 샘플 데이터 시드(상품/다이빙포인트 등)
-```
-npm run seed
-```
-4) 서버 실행
-```
-npm run dev
-```
-5) 브라우저에서 열기: http://localhost:3000
+**Frontend:** HTML/CSS/Vanilla JS · **Backend:** Node.js(Express) · **DB:** MongoDB(Mongoose) · **Auth:** JW
 
 ---
 
@@ -83,7 +60,3 @@ under-the-sea-freedive/
           ├─ ui.js
           └─ pages.js
 ```
-
-## 주의
-- 실제 배포 전에는 HTTPS/보안 헤더, CORS 범위 제한, 입력 검증 강화 등을 적용하세요.
-- 결제 API는 목업 상태입니다. 실 결제 적용 시 PG사 문서에 따라 백엔드 검증 로직을 보강하세요.
