@@ -25,6 +25,10 @@ function header(){
   h.innerHTML = `
     <div class="brand">🌊 <span>Under the Sea</span> — For every Freediver</div>
     <nav>
+      <a></a>
+      <a></a>
+      <a></a>
+      <a></a>
       <a href="index.html">메인</a>
       <a href="shop.html">장비</a>
       <a href="booking.html">예약</a>
@@ -32,7 +36,14 @@ function header(){
       <a href="logs.html">로그북</a>
       <a href="community.html">커뮤니티</a>
       <a href="events.html">이벤트</a>
+      <a></a>
+      <a></a>
+      <a></a>
+      <a></a>
+      <a></a>
+      <a></a>
       <a href="login.html" id="nav-login">로그인</a>
+      <a href="signup.html" id="nav-login">회원가입</a>
     </nav>
   `;
   document.body.prepend(h);

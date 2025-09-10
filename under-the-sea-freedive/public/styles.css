@@ -81,9 +81,11 @@ html, body{ height:100%; }
 body{
   margin:0;
   font-family: GMarketSans;
-  background: radial-gradient(ellipse at 50% -20%, var(--shallow), var(--deep) 60%);
+  /* background: radial-gradient(ellipse at 50% -20%, var(--shallow), var(--deep) 60%); */
   color:#f7fafc;
   overflow-x:hidden;
+  background-image:url(assets/FE5A8823.jpg);
+  background-size: 100%;
 }
 
 /* 물결 배경 */
@@ -138,14 +140,15 @@ nav a:hover{ background: rgba(255,255,255,.08); }
 .container{ max-width: 1300px; margin: 2rem auto; padding: 0 1rem; }
 
 .card{
-  background: rgba(255,255,255,.06);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255,255,255,.1);
   border-radius: 16px; padding: 1rem;
-  box-shadow: 0 10px 30px rgba(255, 252, 225, 0.25);
+  box-shadow: 0 10px 20px rgba(255, 252, 225, 0.25);
+  backdrop-filter: blur(5px);
 }
 
 .mainTitle{
-  font-family: presentiation;
+  font-family: presentiation; 
   font-size: 6rem;
   font-weight: 700;
 }
@@ -171,7 +174,16 @@ nav a:hover{ background: rgba(255,255,255,.08); }
 input, select, textarea{
   width:100%; padding:.75rem; border-radius: 12px; border:1px solid rgba(255,255,255,.2);
   background: rgba(255,255,255,.06); color:#fff;
+  resize: none;
 }
+
+input::placeholder{
+  color: #e6f4ff;
+}
+textarea::placeholder{
+  color: #e6f4ff;
+}
+
 label{
   display:block;
   margin:.6rem 0 .35rem;
