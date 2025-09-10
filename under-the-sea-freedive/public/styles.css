@@ -60,12 +60,16 @@ header{
   position: sticky; top:0; z-index:10;
   display:flex; gap:1rem; align-items:center; padding: .75rem 1rem;
 }
+
 .brand{ font-weight:800; letter-spacing:.5px; }
+
 .brand span{ color: var(--tropic); }
+
 nav a{
   color:#e6f4ff; text-decoration:none; margin-right:1rem; font-weight:600;
   padding:.35rem .6rem; border-radius: 999px;
 }
+
 nav a:hover{ background: rgba(255,255,255,.08); }
 
 .container{ max-width: 1300px; margin: 2rem auto; padding: 0 1rem; }
@@ -98,6 +102,17 @@ label{
   margin:.6rem 0 .35rem;
   align-content: center;
   height: 21px;
+}
+
+.signupLabel{
+  display:grid;
+  gap:1rem;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.signupChBx{
+  padding-right: -50px;
+  width: 8rem;
 }
 
 .grid{ display:grid; gap:1rem; }
