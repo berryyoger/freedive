@@ -251,3 +251,12 @@ option{
 .success{ color:#9ef3c1 }
 .warn{ color:#ffd290 }
 .err{ color:#ffb4b4 }
+
+/* footer */
+footer{
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+}
