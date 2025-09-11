@@ -258,5 +258,21 @@ footer{
   z-index: 1;
   display: grid;
   gap: 1rem;
-  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  background-color: var(--deep);
 }
+
+a{
+  color: inherit;
+  text-decoration: none
+}
+
+.footer_pages{
+  text-align: left;
+}
+
+.footerCwuNav{
+  text-align: center;
+}
+
+.foo
