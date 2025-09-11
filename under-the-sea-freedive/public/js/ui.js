@@ -23,27 +23,21 @@ function oceanBackground(){
 function header(){
   const h = document.createElement('header');
   h.innerHTML = `
-    <div class="brand">🌊 <span>Under the Sea</span> — For every Freediver</div>
     <nav>
-      <a></a>
-      <a></a>
-      <a></a>
-      <a></a>
-      <a href="index.html">메인</a>
-      <a href="shop.html">장비</a>
-      <a href="booking.html">예약</a>
-      <a href="map.html">포인트</a>
-      <a href="logs.html">로그북</a>
-      <a href="community.html">커뮤니티</a>
-      <a href="events.html">이벤트</a>
-      <a></a>
-      <a></a>
-      <a></a>
-      <a></a>
-      <a></a>
-      <a></a>
-      <a href="login.html" id="nav-login">로그인</a>
-      <a href="signup.html" id="nav-login">회원가입</a>
+      <div class="brand">🌊 <span>Under the Sea</span> — For every Freediver</div>
+      <div class="navA">
+        <a href="index.html">메인</a>
+        <a href="shop.html">장비</a>
+        <a href="booking.html">예약</a>
+        <a href="map.html">포인트</a>
+        <a href="logs.html">로그북</a>
+        <a href="community.html">커뮤니티</a>
+        <a href="events.html">이벤트</a>
+      </div>
+      <div class="loginBox">
+        <a href="login.html" id="nav-login">로그인</a>
+        <a href="signup.html" id="nav-login">회원가입</a>
+      </div>
     </nav>
   `;
   document.body.prepend(h);
