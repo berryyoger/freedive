@@ -1,18 +1,19 @@
-function oceanBackground(){
-  const ocean = document.createElement('div');
-  ocean.className = 'ocean';
-  ocean.innerHTML = '<div class="wave"></div><div class="wave"></div><div class="wave"></div>';
+function oceanBackground() {
+  const ocean = document.createElement("div");
+  ocean.className = "ocean";
+  ocean.innerHTML =
+    '<div class="wave"></div><div class="wave"></div><div class="wave"></div>';
   document.body.appendChild(ocean);
 
-  const bubbles = document.createElement('div');
-  bubbles.className = 'bubbles';
-  for (let i=0;i<40;i++){
-    const b = document.createElement('div');
-    const left = Math.random()*100;
-    const delay = (-Math.random()*10).toFixed(2)+'s';
-    const dur = (6+Math.random()*7).toFixed(2)+'s';
-    b.className='bubble';
-    b.style.left = left+'vw';
+  const bubbles = document.createElement("div");
+  bubbles.className = "bubbles";
+  for (let i = 0; i < 40; i++) {
+    const b = document.createElement("div");
+    const left = Math.random() * 100;
+    const delay = (-Math.random() * 10).toFixed(2) + "s";
+    const dur = (6 + Math.random() * 7).toFixed(2) + "s";
+    b.className = "bubble";
+    b.style.left = left + "vw";
     b.style.animationDelay = delay;
     b.style.animationDuration = dur;
     bubbles.appendChild(b);
@@ -20,8 +21,8 @@ function oceanBackground(){
   document.body.appendChild(bubbles);
 }
 
-function header(){
-  const h = document.createElement('header');
+function header() {
+  const h = document.createElement("header");
   h.innerHTML = `
     <nav>
       <div class="brand">🌊 <span>Under the Sea</span> — For every Freediver</div>
@@ -42,83 +43,79 @@ function header(){
   `;
   document.body.prepend(h);
 
-  const token = window.Auth.getToken();3
-  const loginLink = h.querySelector('#nav-login');
-  if (token){
-    loginLink.textContent = '로그아웃';
-    loginLink.addEventListener('click', (e)=>{
+  const token = window.Auth.getToken();
+  const loginLink = h.querySelector("#nav-login");
+  if (token) {
+    loginLink.textContent = "로그아웃";
+    loginLink.addEventListener("click", (e) => {
       e.preventDefault();
       window.Auth.clear();
-      location.href = '/index.html';
+      location.href = "/index.html";
     });
   }
 }
 
-function footer(){
-  const f= document.createElement('footer');
+function footer() {
+  const f = document.createElement("footer");
   f.innerHTML = `
             <div class="footer_pages">
                 <ul class="footerNav">
-                    <li class="footer__nav__item"><a href="http://eos.aidainternational.org">EOS 2.0</a></li>
-                    <li class="footer__nav__item"><a href="/CodeOfConduct">Code of Conduct</a></li>
-                    <li class="footer__nav__item"><a href="/Documents">Documents</a></li>
-                    <li class="footer__nav__item"><a href="/Disclaimer">Disclaimer</a></li>
+                    <li><a href="http://eos.aidainternational.org">EOS 2.0</a></li>
+                    <li><a href="/CodeOfConduct">Code of Conduct</a></li>
+                    <li><a href="/Documents">Documents</a></li>
+                    <li><a href="/Disclaimer">Disclaimer</a></li>
                 </ul>
                 <ul class="footerNav">
-                    <li class="footer__nav__item"><a href="https://www.aidainternational.org/Athletes">Athletes</a>
+                    <li><a href="https://www.aidainternational.org/Athletes">Athletes</a>
                     </li>
-                    <li class="footer__nav__item"><a href="https://www.aidainternational.org/Events/EventCalendar">Event
+                    <li><a href="https://www.aidainternational.org/Events/EventCalendar">Event
                             Calendar</a></li>
-                    <li class="footer__nav__item"><a href="/News">News</a>
+                    <li><a href="/News">News</a>
                     </li>
-                    <li class="footer__nav__item"><a href="https://www.aidainternational.org/Ranking">Rankings</a>
+                    <li><a href="https://www.aidainternational.org/Ranking">Rankings</a>
                     </li>
-                    <li class="footer__nav__item"><a href="https://www.aidainternational.org/WorldRecords">World
+                    <li><a href="https://www.aidainternational.org/WorldRecords">World
                             Records</a></li>
                 </ul>
                 <ul class="footerNav">
-                    <li class="footer__nav__item"><a href="/About">About</a></li>
-                    <li class="footer__nav__item"><a href="/BoardAndMembers">Structure & contacts</a></li>
-                    <li class="footer__nav__item"><a href="/Freediving">Freediving</a></li>
-                    <li class="footer__nav__item"><a href="/Competitive">Competitive</a></li>
+                    <li><a href="/About">About</a></li>
+                    <li><a href="/BoardAndMembers">Structure & contacts</a></li>
+                    <li><a href="/Freediving">Freediving</a></li>
+                    <li><a href="/Competitive">Competitive</a></li>
                 </ul>
             </div>
+            <div>
+            
+            </div>
             <div class="footerCwuNav" style="overflow: visible">
-                <h2 class="footer__connect__title u-spc-bottom--sml">Connect with us</h2>
-
-
-                <ul class="smm u-spc-bottom--sml ">
-
-
-                    <li class="smm__item" style="text-align: left;">
-                        <a id="facebook" class="smm__link">
-                            <img src="/assets/temp/eos/icons/social-facebook.svg" alt="Under the Sea on Facebook" >
+                <h2>Connect with us</h2>
+                <ul class="icons">
+                    <li style="text-align: left;">
+                        <a href="https://www.facebook.com/{}" class="smm__link" target="_blank">
+                            <img src="/public/assets/icons/facebook.svg" alt="Under the Sea on Facebook" >
                         </a>
                     </li>
 
-                    <li class="smm__item" style="text-align: left;">
+                    <li style="text-align: left;">
                         <a href="https://www.instagram.com/{}" class="smm__link" target="_blank">
-                            <img src="/assets/temp/eos/icons/social-instagram.svg" alt="Under the Sea on Instagram" >
+                            <img src="/public/assets/icons/instagram.svg" alt="Under the Sea on Instagram" >
                         </a>
                     </li>
 
-                    <li class="smm__item" style="text-align: left;">
+                    <li style="text-align: left;">
                         <a href="https://twitter.com/{}" target="_blank" class="smm__link">
-                            <img src="/assets/temp/eos/icons/social-twitter.svg" alt="Under the Sea on Twitter" >
+                            <img src="/public/assets/icons/twitter.svg" alt="Under the Sea on Twitter" >
                         </a>
                     </li>
 
 
-                    <li class="smm__item" style="text-align: left;">
+                    <li style="text-align: left;">
                         <a href="https://www.youtube.com/c/{}" target="_blank" class="smm__link">
-                            <img src="/assets/temp/eos/icons/social-youtube.svg" alt="Under the Sea on Youtube" >
+                            <img src="/public/assets/icons/youtube.svg" alt="Under the Sea on Youtube" >
                         </a>
                     </li>
-
-
-
                 </ul>
-                <p class="u-type--primary u-type--zeta">©&thinsp;2025&thinsp;—&thinsp;Under the Sea</p>
+                <p>©&thinsp;2025&thinsp;—&thinsp;Under the Sea</p>
                             </div>
                         </div>
                     </div>
@@ -126,7 +123,7 @@ function footer(){
   document.body.append(f);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   oceanBackground();
   header();
   footer();

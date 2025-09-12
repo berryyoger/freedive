@@ -1,47 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>이벤트 & 여행</title>
-<link rel="stylesheet" href="styles.css">
-<script defer src="js/auth.js"></script>
-<script defer src="js/api.js"></script>
-<script defer src="js/ui.js"></script>
-<script defer src="js/pages.js"></script>
-</head>
-<body>
-<div class="container">
-  <div class="grid cols-2">
-    <div class="card">
-      <h2>이벤트 등록</h2>
-      <form id="event-form">
-        <label>제목</label>
-        <input name="title" required>
-        <div class="grid cols-2">
-          <div>
-            <label>시작일</label>
-            <input name="startDate" type="date" required>
-          </div>
-          <div>
-            <label>종료일</label>
-            <input name="endDate" type="date" required>
-          </div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>이벤트 & 여행</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="js/auth.js"></script>
+    <script defer src="js/api.js"></script>
+    <script defer src="js/ui.js"></script>
+    <script defer src="js/pages.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="grid cols-2">
+        <div class="card">
+          <h2>이벤트 등록</h2>
+          <form id="event-form">
+            <label>제목</label>
+            <input name="title" required />
+            <div class="grid cols-2">
+              <div>
+                <label>시작일</label>
+                <input name="startDate" type="date" required />
+              </div>
+              <div>
+                <label>종료일</label>
+                <input name="endDate" type="date" required />
+              </div>
+            </div>
+            <label>장소</label>
+            <input name="location" placeholder="예: 제주 서귀포" />
+            <label>설명</label>
+            <textarea name="description" rows="3"></textarea>
+            <label>링크 (선택)</label>
+            <input name="link" placeholder="https://..." />
+            <button class="btn" type="submit" style="margin-top: 1rem">
+              저장
+            </button>
+          </form>
         </div>
-        <label>장소</label>
-        <input name="location" placeholder="예: 제주 서귀포">
-        <label>설명</label>
-        <textarea name="description" rows="3"></textarea>
-        <label>링크 (선택)</label>
-        <input name="link" placeholder="https://...">
-        <button class="btn" type="submit" style="margin-top: 1rem;">저장</button>
-      </form>
+        <div>
+          <h2>이벤트 목록</h2>
+          <div id="event-list" class="grid cols-2"></div>
+        </div>
+      </div>
     </div>
-    <div>
-      <h2>이벤트 목록</h2>
-      <div id="event-list" class="grid cols-2"></div>
-    </div>
-  </div>
-</div>
-</body>
+  </body>
 </html>
