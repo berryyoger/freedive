@@ -14,7 +14,7 @@
     <div class="container card">
       <h2>강습 예약</h2>
       <form id="booking-form" class="grid cols-2">
-        <div>
+        <div class="bookLblInpGrp">
           <label>코스명</label>
           <input
             name="courseName"
@@ -22,23 +22,23 @@
             placeholder="AIDA2 Pool, PADI Freediver 등"
           />
         </div>
-        <div>
+        <div class="bookLblInpGrp">
           <label>날짜</label>
           <input name="date" type="date" required />
         </div>
-        <div>
+        <div class="bookLblInpGrp">
           <label>시간</label>
           <input name="time" type="time" required />
         </div>
-        <div>
+        <div class="bookLblInpGrp">
           <label>장소</label>
           <input name="location" required placeholder="수영장/바다 포인트" />
         </div>
-        <div>
+        <div class="bookLblInpGrp">
           <label>인원</label>
           <input name="numPeople" type="number" min="1" value="1" />
         </div>
-        <div>
+        <div class="bookLblInpGrp">
           <label>메모</label>
           <input name="notes" placeholder="요청사항" />
         </div>
@@ -47,6 +47,30 @@
           <span class="small">* 로그인 필요</span>
         </div>
       </form>
+      <div style="margin-top: 1rem;">
+        <h2>강습예약 유의사항</h3>
+        <h3>예약 및 결제</h3>
+        강습 예약은 홈페이지를 통한 사전 결제로만 확정됩니다.<br>
+        결제 완료 후 예약 확정 문자가 발송되며, 확인이 되지 않은 경우 반드시 문의 바랍니다.<br>
+        <h3>예약 변경 및 취소</h3>
+        강습 3일 전까지는 전액 환불 가능합니다.<br>
+        강습 2일 전~1일 전 취소 시 50% 환불됩니다.<br>
+        강습 당일 취소 및 무단 불참은 환불이 불가합니다.<br>
+        일정 변경은 강습 2일 전까지 1회에 한해 가능합니다.<br>
+        <h3>참가 조건</h3>
+        만 15세 이상부터 참여 가능하며, 미성년자는 보호자 동의가 필요합니다.<br>
+        고혈압, 심장질환, 호흡기 질환 등 특정 질환이 있는 경우 반드시 사전 고지 후 의사 소견서를 제출해야 합니다.<br>
+        음주 상태 또는 숙취가 있는 경우 강습 참여가 제한될 수 있습니다.<br>
+        <h3>준비물 안내</h3>
+        수영복, 수모, 개인 장비(마스크·스노클·핀 등)를 지참해 주시기 바랍니다.<br>
+        장비 대여가 필요한 경우 예약 시 선택해 주세요.<br>
+        <h3>안전 수칙</h3>
+        강사의 지시를 반드시 따라야 하며, 임의로 깊이·시간을 늘리는 행위는 금지됩니다.<br>
+        모든 강습 과정은 안전을 최우선으로 운영되며, 참여자의 부주의로 인한 사고는 책임지지 않습니다.<br>
+        <h3>기타 안내</h3>
+        개인 사정으로 지각 시 강습 시간이 단축되며, 별도 보상은 불가합니다.<br>
+        강습 중 촬영을 원하실 경우 사전 문의 바랍니다.
+      </div>
     </div>
   </body>
 </html>
