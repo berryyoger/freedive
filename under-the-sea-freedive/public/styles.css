@@ -101,7 +101,8 @@ body {
   /* background: radial-gradient(ellipse at 50% -20%, var(--shallow), var(--deep) 60%); */
   color: #f7fafc;
   overflow-x: hidden;
-  background-image: url(assets/FE5A8823.jpg);
+  background-image: url(assets/bg.png);
+  background-position: top;
   background-size: 100%;
   background-repeat: no-repeat;
   height: auto;
