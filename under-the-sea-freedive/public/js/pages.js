@@ -1,17 +1,17 @@
 // Signup page logic
-async function handleSignup(){
-  const form = document.querySelector('#signup-form');
-  if (!form) return;
-  const emailInput = form.querySelector('input[name=email]');
-  const emailMsg = form.querySelector('#email-msg');
-  emailInput.addEventListener('blur', async () => {
-    const email = emailInput.value.trim();
-    if (!email) return;
-    try{
-      const { exists } = await API.get(`/api/auth/check-email?email=${encodeURIComponent(email)}`);
+async function handleSignup(){ //비동기 실행
+  const form = document.querySelector('#signup-form'); //폼 호출
+  if (!form) return; // 폼 아닐 시 반환
+  const emailInput = form.querySelector('input[name=email]');// 호출한 폼에서 이메일 input 호출
+  const emailMsg = form.querySelector('#email-msg'); //이메일 가용여부 표시창 호출
+  emailInput.addEventListener('blur', async () => { //이메일 입력 후 blur 시 비동기 실행
+    const email = emailInput.value.trim(); //이메일 양 끝 공백 제거
+    if (!email) return; //이메일 아닐 시 반환
+    try{ //try 내 코드 실행
+      const { exists } = await API.get(`api/auth/check-email?email=${encodeURIComponent(email)}`);
       emailMsg.textContent = exists ? '이미 사용 중인 이메일입니다.' : '사용 가능한 이메일입니다.';
       emailMsg.className = exists ? 'err small' : 'success small';
-    }catch(e){ emailMsg.textContent = ''; }
+    }catch(e){ emailMsg.textContent = ''; } //위 try에서 예외 발생시 실행
   });
 
   form.addEventListener('submit', async (e) => {
@@ -22,7 +22,7 @@ async function handleSignup(){
       alert('비밀번호 확인이 일치하지 않습니다.'); return;
     }
     try{
-      const r = await API.post('/api/auth/register', data);
+      const r = await API.post('api/auth/register', data);
       Auth.setToken(r.token, true);
       alert('회원가입 완료!');
       location.href = '/index.html';
