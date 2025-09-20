@@ -36,22 +36,46 @@ function header() {
         <a href="events.html">이벤트</a>
       </div>
       <div class="loginBox">
-        <a href="login.html" id="nav-login">로그인</a>
-        <a href="signup.html" id="nav-login">회원가입</a>
+        <span id="user-chip" class="small" style="display:none;margin-right:.5rem;"></span>
+        <a href="login.html"  id="nav-login">로그인</a>
+        <a href="signup.html" id="nav-signup" style="margin-left:.5rem;">회원가입</a>
+        <a href="#"           id="nav-logout" style="display:none;margin-left:.5rem;">로그아웃</a>
       </div>
     </nav>
   `;
   document.body.prepend(h);
 
-  const token = window.Auth.getToken();
-  const loginLink = h.querySelector("#nav-login");
+  const token    = window.Auth?.getToken?.();
+  const loginA   = h.querySelector("#nav-login");
+  const signupA  = h.querySelector("#nav-signup");
+  const logoutA  = h.querySelector("#nav-logout");
+  const userChip = h.querySelector("#user-chip");
+
   if (token) {
-    loginLink.textContent = "로그아웃";
-    loginLink.addEventListener("click", (e) => {
+    loginA.style.display  = "none";
+    signupA.style.display = "none";
+    logoutA.style.display = "inline";
+
+    // 캐시된 사용자(가입/로그인 직후 저장됨) 또는 JWT 간단 디코드
+    let profile = null;
+    try { profile = JSON.parse(localStorage.getItem('undersea_me') || 'null'); } catch {}
+    if (!profile && window.Auth?.decode) profile = window.Auth.decode();
+    if (profile && (profile.name || profile.email || profile.sub)) {
+      userChip.textContent = `안녕하세요, ${profile.name || profile.email || profile.sub}님`;
+      userChip.style.display = "inline";
+    }
+
+    logoutA.addEventListener("click", (e) => {
       e.preventDefault();
-      window.Auth.clear();
+      window.Auth?.clear?.();
+      localStorage.removeItem('undersea_me');
       location.href = "/index.html";
     });
+  } else {
+    loginA.style.display  = "inline";
+    signupA.style.display = "inline";
+    logoutA.style.display = "none";
+    userChip.style.display = "none";
   }
 }
 
@@ -66,16 +90,11 @@ function footer() {
                     <li><a href="/Disclaimer">Disclaimer</a></li>
                 </ul>
                 <ul class="footerNav">
-                    <li><a href="https://www.aidainternational.org/Athletes">Athletes</a>
-                    </li>
-                    <li><a href="https://www.aidainternational.org/Events/EventCalendar">Event
-                            Calendar</a></li>
-                    <li><a href="/News">News</a>
-                    </li>
-                    <li><a href="https://www.aidainternational.org/Ranking">Rankings</a>
-                    </li>
-                    <li><a href="https://www.aidainternational.org/WorldRecords">World
-                            Records</a></li>
+                    <li><a href="https://www.aidainternational.org/Athletes">Athletes</a></li>
+                    <li><a href="https://www.aidainternational.org/Events/EventCalendar">Event Calendar</a></li>
+                    <li><a href="/News">News</a></li>
+                    <li><a href="https://www.aidainternational.org/Ranking">Rankings</a></li>
+                    <li><a href="https://www.aidainternational.org/WorldRecords">World Records</a></li>
                 </ul>
                 <ul class="footerNav">
                     <li><a href="/About">About</a></li>
@@ -84,9 +103,7 @@ function footer() {
                     <li><a href="/Competitive">Competitive</a></li>
                 </ul>
             </div>
-            <div>
-            
-            </div>
+            <div></div>
             <div class="footerCwuNav" style="overflow: visible">
                 <h2>Connect with us</h2>
                 <ul class="icons">
@@ -95,20 +112,16 @@ function footer() {
                             <img src="/public/assets/icons/facebook.svg" alt="Under the Sea on Facebook" >
                         </a>
                     </li>
-
                     <li style="text-align: left;">
                         <a href="https://www.instagram.com/{}" class="smm__link" target="_blank">
                             <img src="/public/assets/icons/instagram.svg" alt="Under the Sea on Instagram" >
                         </a>
                     </li>
-
                     <li style="text-align: left;">
                         <a href="https://twitter.com/{}" target="_blank" class="smm__link">
                             <img src="/public/assets/icons/twitter.svg" alt="Under the Sea on Twitter" >
                         </a>
                     </li>
-
-
                     <li style="text-align: left;">
                         <a href="https://www.youtube.com/c/{}" target="_blank" class="smm__link">
                             <img src="/public/assets/icons/youtube.svg" alt="Under the Sea on Youtube" >
@@ -116,9 +129,7 @@ function footer() {
                     </li>
                 </ul>
                 <p>©&thinsp;2025&thinsp;—&thinsp;Under the Sea</p>
-                            </div>
-                        </div>
-                    </div>
+            </div>
   `;
   document.body.append(f);
 }

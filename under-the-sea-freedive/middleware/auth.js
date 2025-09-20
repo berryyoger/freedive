@@ -1,16 +1,16 @@
 import jwt from 'jsonwebtoken';
 
-export function authRequired(req, res, next) {
-  const auth = req.headers.authorization;
-  if (!auth || !auth.startsWith('Bearer ')) {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
-  const token = auth.split(' ')[1];
+export function authRequired(req,res,next){
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // { id, email }
+    const h = req.headers.authorization || '';
+    const [type, token] = h.split(' ');
+    if (type !== 'Bearer' || !token){
+      return res.status(401).json({ error:'Unauthorized' });
+    }
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = { id: payload.id, email: payload.email };
     next();
-  } catch (e) {
-    return res.status(401).json({ error: 'Invalid token' });
+  } catch(e){
+    return res.status(401).json({ error:'Unauthorized' });
   }
 }

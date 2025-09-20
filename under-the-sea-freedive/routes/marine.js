@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
   try {
     const r = await fetch(url);
     const j = await r.json();
-    res.json(j);
+    res.json(j);  
   } catch (e) {
     console.error(e);
     res.status(500).json({ error: 'Marine API 오류' });

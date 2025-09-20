@@ -15,6 +15,16 @@ const Auth = {
   clear(){
     localStorage.removeItem(this.rememberKey);
     sessionStorage.removeItem(this.sessionKey);
+  },
+
+  // ✅ 추가: JWT 페이로드 간단 디코드 (서버 /me 없을 때 폴백)
+  decode(){
+    const t = this.getToken();
+    if (!t) return null;
+    try {
+      const base64 = t.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+      return JSON.parse(atob(base64)); // { email?, name?, sub?, id? ... }
+    } catch { return null; }
   }
 };
 window.Auth = Auth;

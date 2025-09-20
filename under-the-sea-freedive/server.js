@@ -1,53 +1,56 @@
 import express from 'express';
-import dotenv from 'dotenv';
 import cors from 'cors';
 import morgan from 'morgan';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 
-import './config/db.js';
-
-import authRoutes from './routes/auth.js';
-import productRoutes from './routes/products.js';
-import bookingRoutes from './routes/bookings.js';
-import divePointRoutes from './routes/divepoints.js';
-import diveLogRoutes from './routes/divelogs.js';
-import postRoutes from './routes/posts.js';
-import eventRoutes from './routes/events.js';
-import marineRoutes from './routes/marine.js';
+// 라우터 임포트
+import authRouter from './routes/auth.js';
+import productsRouter from './routes/products.js';
+import bookingsRouter from './routes/bookings.js';
+import postsRouter from './routes/posts.js';
+import eventsRouter from './routes/events.js';
+import divepointsRouter from './routes/divepoints.js';
+import marineRouter from './routes/marine.js';
+import divelogsRouter from './routes/divelogs.js';
 
 dotenv.config();
-
 const app = express();
-app.use(cors());
-app.use(express.json());
+
+// 미들웨어
 app.use(morgan('dev'));
+app.use(express.json());
+app.use(cors({ origin: true, credentials: true }));
+app.options('*', cors()); // OPTIONS 자동 204 처리 (405 방지)
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// DB 연결
+mongoose.connect(process.env.MONGO_URI)
+  .then(()=>console.log('✅ Mongo connected'))
+  .catch(err=>{ console.error('❌ Mongo error', err); process.exit(1); });
 
-// API routes
-app.use('/api/auth', authRoutes);
-app.use('/api/products', productRoutes);
-app.use('/api/bookings', bookingRoutes);
-app.use('/api/divepoints', divePointRoutes);
-app.use('/api/divelogs', diveLogRoutes);
-app.use('/api/posts', postRoutes);
-app.use('/api/events', eventRoutes);
-app.use('/api/marine', marineRoutes);
+// 라우터 마운트 (프런트와 정확히 일치하는 경로)
+app.use('/api/auth', authRouter);
+app.use('/api/products', productsRouter);
+app.use('/api/bookings', bookingsRouter);
+app.use('/api/posts', postsRouter);
+app.use('/api/events', eventsRouter);
+app.use('/api/divepoints', divepointsRouter);
+app.use('/api/marine', marineRouter);
+app.use('/api/divelogs', divelogsRouter);
 
-// Static
-app.use(express.static(path.join(__dirname, 'public')));
+// 헬스체크
+app.get('/health', (req,res)=>res.json({ok:true}));
 
-// Fallback to index or specific pages
-app.get('*', (req, res) => {
-  const accept = req.headers.accept || '';
-  if (accept.includes('text/html')) {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-  } else {
-    res.status(404).json({ error: 'Not found' });
-  }
+// 404 핸들러
+app.use('/api', (req,res)=>res.status(404).json({ error:'API route not found', path:req.originalUrl }));
+
+// 에러 핸들러
+app.use((err,req,res,next)=>{
+  console.error('💥', err);
+  res.status(err.status||500).json({ error: err.message||'서버 오류' });
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🌊 Under the Sea server running at http://localhost:${PORT}`));
+// 서버 시작
+app.listen(process.env.PORT || 3000, ()=>{
+  console.log(`🚀 API server http://localhost:${process.env.PORT||3000}`);
+});
