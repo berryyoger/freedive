@@ -1,0 +1,85 @@
+name: AI Code Review
+
+on:
+  push:                      # 푸시만 해도 실행(원치 않으면 제거)
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    env:
+      OPENAI_MODEL: gpt-4o-mini   # 비용/속도 절충. 더 강력하게는 gpt-4o
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # merge-base/diff 계산을 위해 전체 히스토리
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'      # Node 20은 fetch 내장
+
+      - name: Ensure jq installed
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y jq
+
+      - name: Compute DIFF
+        id: diff
+        shell: bash
+        run: |
+          # 이벤트에 따라 base/head 산정
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+            HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+          else
+            BASE_SHA="$(git rev-parse HEAD~1)"
+            HEAD_SHA="$(git rev-parse HEAD)"
+          fi
+
+          echo "Base: $BASE_SHA"
+          echo "Head: $HEAD_SHA"
+
+          # 유니파이드 0줄(라인 정밀), 색상 제거, 바이너리/대용량 제외 필터
+          git diff --unified=0 --no-color --diff-filter=AMCRD "$BASE_SHA" "$HEAD_SHA" > diff.patch || true
+
+          # 너무 큰 diff 방어(약 500KB 상한)
+          MAX=512000
+          SIZE=$(wc -c < diff.patch)
+          if [ "$SIZE" -gt "$MAX" ]; then
+            echo "::warning::Diff is large ($SIZE bytes); truncating to $MAX bytes."
+            head -c $MAX diff.patch > diff.patch.trunc && mv diff.patch.trunc diff.patch
+          fi
+
+      - name: Run AI Review
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ env.OPENAI_MODEL }}
+        run: node .github/workflows/ai-review.mjs
+
+      - name: Post comment to PR
+        if: ${{ github.event_name == 'pull_request' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          FILE=".github/workflows/ai-review.out.md"
+          if [ -f "$FILE" ]; then
+            BODY=$(jq -Rs . < "$FILE")
+            curl -s -X POST \
+              -H "Authorization: Bearer $GITHUB_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              https://api.github.com/repos/$REPO/issues/$PR_NUMBER/comments \
+              -d "{\"body\": $BODY}" > /dev/null
+          else
+            echo "No review output generated."
+          fi
