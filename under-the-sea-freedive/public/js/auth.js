@@ -17,7 +17,7 @@ const Auth = {
     sessionStorage.removeItem(this.sessionKey);
   },
 
-  // ✅ 추가: JWT 페이로드 간단 디코드 (서버 /me 없을 때 폴백)
+  //JWT 페이로드 간단 디코드 (서버 /me 없을 때 폴백)
   decode(){
     const t = this.getToken();
     if (!t) return null;

@@ -32,7 +32,7 @@ async function handleSignup(){
       // 2) 토큰 저장 (자동 로그인)
       Auth.setToken(r.token, true);
 
-      // 3) ✅ 가입 검증: /api/auth/me 호출(있다면)
+      // 3) 가입 검증: /api/auth/me 호출(있다면)
       let profile = null;
       try {
         profile = await API.get('/api/auth/me', true);  // 서버에 라우트가 있을 때

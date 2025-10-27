@@ -1,10 +1,13 @@
+// server.js
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
-import mongoose from 'mongoose';
+dotenv.config();
 
-// 라우터 임포트
+// 🔌 DB 연결
+import './config/db.js';
+
 import authRouter from './routes/auth.js';
 import productsRouter from './routes/products.js';
 import bookingsRouter from './routes/bookings.js';
@@ -14,21 +17,22 @@ import divepointsRouter from './routes/divepoints.js';
 import marineRouter from './routes/marine.js';
 import divelogsRouter from './routes/divelogs.js';
 
-dotenv.config();
 const app = express();
 
 // 미들웨어
+app.use(cors({
+  origin: true,              // 개발 중에는 모두 허용
+  credentials: false,        // 쿠키 안 쓰면 false
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS']
+}));
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(cors({ origin: true, credentials: true }));
-app.options('*', cors()); // OPTIONS 자동 204 처리 (405 방지)
 
-// DB 연결
-mongoose.connect(process.env.MONGO_URI)
-  .then(()=>console.log('✅ Mongo connected'))
-  .catch(err=>{ console.error('❌ Mongo error', err); process.exit(1); });
+// 헬스체크
+app.get('/health', (req, res) => res.json({ ok: true }));
 
-// 라우터 마운트 (프런트와 정확히 일치하는 경로)
+// API 라우트 마운트 (404보다 먼저!)
 app.use('/api/auth', authRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/bookings', bookingsRouter);
@@ -38,19 +42,18 @@ app.use('/api/divepoints', divepointsRouter);
 app.use('/api/marine', marineRouter);
 app.use('/api/divelogs', divelogsRouter);
 
-// 헬스체크
-app.get('/health', (req,res)=>res.json({ok:true}));
-
-// 404 핸들러
-app.use('/api', (req,res)=>res.status(404).json({ error:'API route not found', path:req.originalUrl }));
-
-// 에러 핸들러
-app.use((err,req,res,next)=>{
-  console.error('💥', err);
-  res.status(err.status||500).json({ error: err.message||'서버 오류' });
+// 404 핸들러 (항상 마지막에)
+app.use('/api', (req, res) => {
+  res.status(404).json({ error: 'API route not found', path: req.originalUrl });
 });
 
-// 서버 시작
-app.listen(process.env.PORT || 3000, ()=>{
-  console.log(`🚀 API server http://localhost:${process.env.PORT||3000}`);
+// 에러 핸들러
+app.use((err, req, res, next) => {
+  console.error('💥', err);
+  res.status(err.status || 500).json({ error: err.message || '서버 오류' });
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`🚀 API server http://localhost:${PORT}`);
 });
